@@ -7,8 +7,13 @@ The encoder uses [qrcode-js](https://github.com/davidshimjs/qrcodejs) to
 create QR codes on the fly, and the decoder uses [zxing-cpp](https://github.com/nu-book/zxing-cpp)
 for decoding QR codes found in images.
 
-## Prerequisites
-* ffmpeg (for decoding only)
+## Encoder Prerequisites
+* Chromium-based browser
+
+## Decoder Prerequisites
+* cmake / make / c++ compiler
+* ffmpeg
+* perl
 
 ## Building
 To build zxing-cpp:
