@@ -60,8 +60,8 @@ MIME type: data:image/jpeg;base64
 
 The [example](example/) directory contains a sample JPEG file (borrowed from [@bigendiansmalls](https://twitter.com/bigendiansmalls),
 who initially posted [here](https://twitter.com/bigendiansmalls/status/1374783712714485763) looking for stupid data exfiltration
-tricks.  That file was encoded with the encoder, and the video captured with a cellphone camera (at 1080p30).  The corresponding ZXing output
-generated from that video file can also be found in the example directory.
+tricks.  That file was encoded with the encoder, and the video was captured with a cellphone camera.  The corresponding ZXing output
+generated from that video file (via ffmpeg) can also be found in the example directory.
 
 ```
 $ cd example/
@@ -72,3 +72,20 @@ MIME type: data:image/jpeg;base64
 1f5ab5f204f3086dc1994af718ccdbd3  -
 ```
 
+## Notes
+Throughput of the encoder can be modified with `frameSize` and `frameInterval` parameters at the
+top of [qrc-encoder.html](encoder/qrc-encoder.html).  The overall throughput can be calculated by the formula:
+
+```
+throughput (bytes/sec) = 750 * frameSize / frameInterval
+```
+
+The default settings (`frameSize = 256` and `frameInterval = 100`) are quite conservative and result in a modest
+1.9kB/s transfer rate to maximize reliability.  Using a handheld 1080p cellphone camera recording at 30 fps,
+zxing detects 3-5 copies of each QR frame in the output.  This implies that a with a fast display and a 4K camera
+recording at 60 fps, an 8x increase in throughput (`frameSize = 1024` and `frameInterval = 50`) could be achieved
+with no loss of robustness at 15kB/s.
+
+Depending on display responsiveness, camera resolution, framerate, and image stability, you may find even more
+aggressive settings (higher `frameSize`, lower `frameInterval`) that still work reliably with the devices
+in your situation.

@@ -5,8 +5,9 @@
 // Config settings
 //////////////////////////////////////////////////////
 
-var frameSize = 256;	// base64 chars per QR frame
-var qrResolution = 512;	// image size in pixels of QR
+let frameSize = 256;	// base64 chars per QR frame
+let frameInterval = 100; // milliseconds per QR frame
+let qrResolution = 512;	// image size in pixels of QR
 
 //////////////////////////////////////////////////////
 
@@ -55,7 +56,7 @@ function sendFile() {
 		} else {
 			frame = 0;
 		}
-	}, 100)
+	}, frameInterval)
 }
 </script>
 </head>
