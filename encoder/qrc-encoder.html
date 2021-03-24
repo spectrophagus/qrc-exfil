@@ -1,0 +1,70 @@
+<html><head>
+<script type="text/javascript" src="qrcodejs/qrcode.min.js"></script>
+<script type="text/javascript">
+//////////////////////////////////////////////////////
+// Config settings
+//////////////////////////////////////////////////////
+
+var frameSize = 256;	// base64 chars per QR frame
+var qrResolution = 512;	// image size in pixels of QR
+
+//////////////////////////////////////////////////////
+
+var send, code;
+
+function stopSend() {
+	let qr = document.getElementById("qrcode");
+	let focusTest = Array(frameSize).fill(' ').join('');
+
+	if (!qr) return;
+	if (!code) code = new QRCode(qr, { width: qrResolution, height: qrResolution });
+
+	if (null != send) {
+		clearInterval(send);
+		send = null;
+	}
+
+	var details = document.getElementById("details");
+	details.innerHTML = "<h1>VERIFY FOCUS</h1>";
+	code.makeCode(focusTest);
+}
+
+function sendFile() {
+	let files = document.getElementById("sendfile").files;
+	let filename = document.getElementById("sendfile").value;
+	var reader = new FileReader();
+
+	var frame = 0;
+	var frames = [];
+	
+	reader.onload = (event) => {
+		let result = event.target.result;
+		let regex = new RegExp('(.{1,' + frameSize + '})', 'g');
+		frames = result.match(regex);
+	}
+
+	reader.readAsDataURL(files[0]);
+
+	var details = document.getElementById("details");
+
+	send = setInterval(() => {
+		code.clear();
+		if (frame < frames.length) {
+			details.innerHTML = "Frame " + frame + " of " + frames.length + "<br /><h2>" + filename + "</h2>";
+			code.makeCode(frames[frame++]);
+		} else {
+			frame = 0;
+		}
+	}, 100)
+}
+</script>
+</head>
+<body onLoad="stopSend();">
+
+<label for="sendfile">Select a file:</label>
+<input type="file" id="sendfile" name="sendfile" onInput="setTimeout(sendFile, 1000);" onClick="stopSend();">
+<p>
+<div id="qrcode"></div>
+<div id="details"></div>
+</p>
+</html>
