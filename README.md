@@ -54,9 +54,19 @@ into the original base64 content.
 
 ```
 $ cd decoder
-$ ./zxing-cpp/build/example/ZXingReader /tmp/qrc-out/out*.png | ./qr-decoder.pl | base64 --decode > /tmp/qrc-out.decoded
+$ ./zxing-cpp/build/example/ZXingReader /tmp/qrc-out/out*.png | ./qrc-decode-single.pl | base64 --decode > /tmp/qrc-out.decoded
 MIME type: data:image/jpeg;base64
-
-$ md5sum /tmp/qrc-out.decoded
-1f5ab5f204f3086dc1994af718ccdbd3  /tmp/qrc-out.decoded
 ```
+
+The [example](example/) directory contains a JPEG file and the corresponding ZXing output
+generated from a video file capturing that file being sent by the encoder.
+
+```
+$ cd example/
+$ md5sum test.jpg
+1f5ab5f204f3086dc1994af718ccdbd3  test.jpg
+$ gzip -cd ./test.zxing.output.gz | ../decoder/qrc-decode-single.pl | base64 --decode | md5sum
+MIME type: data:image/jpeg;base64
+1f5ab5f204f3086dc1994af718ccdbd3  -
+```
+
