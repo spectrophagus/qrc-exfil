@@ -58,8 +58,10 @@ $ ./zxing-cpp/build/example/ZXingReader /tmp/qrc-out/out*.png | ./qrc-decode-sin
 MIME type: data:image/jpeg;base64
 ```
 
-The [example](example/) directory contains a JPEG file and the corresponding ZXing output
-generated from a video file capturing that file being sent by the encoder.
+The [example](example/) directory contains a sample JPEG file (borrowed from [@bigendiansmalls](https://twitter.com/bigendiansmalls),
+who initially posted [here](https://twitter.com/bigendiansmalls/status/1374783712714485763) looking for stupid data exfiltration
+tricks.  That file was encoded with the encoder, and the video captured with a cellphone camera (at 1080p30).  The corresponding ZXing output
+generated from that video file can also be found in the example directory.
 
 ```
 $ cd example/
