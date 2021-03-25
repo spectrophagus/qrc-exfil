@@ -9,6 +9,8 @@ for decoding QR codes found in images.
 
 ## Encoder Prerequisites
 * Chromium-based browser
+* Click here for [hosted version](https://spectrophagus.github.io/qrc-exfil/encoder/qrc-encoder.html) or download the
+[self-contained version](https://spectrophagus.github.io/qrc-exfil/encoder/qrc-encoder-combined.html).
 
 ## Decoder Prerequisites
 * cmake / make / c++ compiler
