@@ -1,12 +1,14 @@
 #!/usr/bin/env perl
 
 while(<>) {
-	next if /qrcodejs/;
-	print;
-	if (/<script/) {
+	if (/qrcodejs/) {
+		print "<script type=\"text/javascript\">\n";
 		open(my $fh, "<", "qrcodejs/qrcode.min.js");
 		while(<$fh>) {
 			print "$_\n";
 		}
+		print "</script>\n";
+	} else {
+		print;
 	}
 }
